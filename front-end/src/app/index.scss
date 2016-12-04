@@ -1,0 +1,106 @@
+/**
+ *  If you want to override some bootstrap variables, you have to change values here.
+ *  The list of variables are listed here bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss
+ */
+$navbar-inverse-link-color: #5AADBB;
+$icon-font-path: "../../bootstrap-sass/assets/fonts/bootstrap/";
+
+/**
+ *  Do not remove the comments below. It's the markers used by wiredep to inject
+ *  sass dependencies when defined in the bower.json of your dependencies
+ */
+// bower:scss
+// endbower
+
+//BOWER STUFF
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+.thumbnail {
+  height: 200px;
+
+  img.pull-right {
+    width: 50px;
+  }
+}
+
+//GENERAL
+body {
+    background-color: #d5edd6;
+    font-family: 'Hypatia Sans Pro Bold', sans-serif;
+}
+
+.page-header {
+    text-align: center;
+    font-size: 50px;
+    padding-top: 30px;
+}
+
+.custom-link:hover {
+    color: #227524;
+}
+
+//FORM ITEMS
+.center-panel {
+    width: 20%;
+    display: block;
+    padding-top: 10px;
+}
+
+.center-button {
+    display: block;
+}
+
+.form-control {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.special-field {
+    margin-bottom: 30px;
+}
+
+//NAVBAR
+.navbar {
+    width: 100%;
+    background-color: #227524;
+    color: white;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 30px;
+}
+
+//WELCOME
+.welcome-header {
+    font-size: 50px;
+    text-align: center;
+    padding-top: 10%;
+}
+
+.button-panel {
+    width: 20%;
+    display: block;
+    padding-top: 30px;
+}
+
+.button-panel-button {
+    display: block;
+    background-color: #227524;
+    color: white;
+    font-size: 20px;
+}
+
+//LOG IN
+
+/**
+ *  Do not remove the comments below. It's the markers used by gulp-inject to inject
+ *  all your sass files automatically
+ */
+// injector
+// endinjector
