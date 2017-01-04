@@ -1,21 +1,25 @@
+``
 <h1 class="page-header">Register.</h1>
 <div class="center-panel center-block">
-  <div class="form-group">
-    <input type="text" class="form-control col-md-12 special-field" placeholder="Real Name (optional)" />
-  </div>
-  <div class="form-group">
-    <input type="email" class="form-control col-md-12" placeholder="Email" />
-  </div>
-  <div class="form-group">
-    <input type="email" class="form-control col-md-12" placeholder="Confirm Email" />
-  </div>
-  <div class="form-group">
-    <input type="password" class="form-control col-md-12" placeholder="Password" />
-  </div>
-  <div class="form-group">
-    <input type="password" class="form-control col-md-12" placeholder="Confirm Password" />
-  </div>
-  <div class="center-button">
-    <button type="submit" class="btn btn-default button-panel-button center-block">Register</button>
-  </div>
+  <form name="register" ng-submit="auth.register()">
+    <div class="form-group">
+      <input ng-model="auth.name" type="text" class="form-control col-md-12 special-field" placeholder="Real Name (optional)" />
+    </div>
+    <div class="form-group">
+      <input ng-model="auth.user.email" type="email" class="form-control col-md-12" placeholder="Email" ng-model="auth.user.email" />
+    </div>
+    <div class="form-group">
+      <input type="email" class="form-control col-md-12" placeholder="Confirm Email" />
+    </div>
+    <div class="form-group">
+      <input ng-model="auth.user.pwd" name="pwd" type="password" class="form-control col-md-12" placeholder="Password" />
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control col-md-12" compare-to="auth.user.pwd" placeholder="Confirm Password" name="pwdConfirm" ng-model="pwdConfirm" />
+    </div>
+    <span ng-show="register.pwdConfirm.$dirty && register.pwdConfirm.$invalid">Passwords do not match</span>
+    <div class="center-button">
+      <button class="btn btn-default button-panel-button center-block" ng-disabled="register.pwdConfirm.$invalid" type="submit">Register</button>
+    </div>
+  </form>
 </div>

@@ -1,42 +1,47 @@
 /* global malarkey:false, moment:false */
 
 import {
-  config
+	config
 } from './index.config';
 import {
-  routerConfig
+	routerConfig
 } from './index.route';
 import {
-  runBlock
+	runBlock
 } from './index.run';
 import {
-  MainController
+	MainController
 } from './main/main.controller';
 import {
-  AuthController
+	AuthController
 } from './auth/auth.controller';
 import {
-  GithubContributorService
+	CompareToDirective
+} from './directives/compareTo.directive';
+import {
+	GithubContributorService
 } from '../app/components/githubContributor/githubContributor.service';
 import {
-  WebDevTecService
+	WebDevTecService
 } from '../app/components/webDevTec/webDevTec.service';
 import {
-  NavbarDirective
+	NavbarDirective
 } from '../app/components/navbar/navbar.directive';
 import {
-  MalarkeyDirective
+	MalarkeyDirective
 } from '../app/components/malarkey/malarkey.directive';
 
-angular.module('dotaLanFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'toastr'])
-  .constant('malarkey', malarkey)
-  .constant('moment', moment)
-  .config(config)
-  .config(routerConfig)
-  .run(runBlock)
-  .service('githubContributor', GithubContributorService)
-  .service('webDevTec', WebDevTecService)
-  .controller('MainController', MainController)
-  .controller('AuthController', AuthController)
-  .directive('acmeNavbar', NavbarDirective)
-  .directive('acmeMalarkey', MalarkeyDirective);
+angular.module('dotaLanFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'toastr', 'satellizer'])
+	.constant('API_URL', 'http://localhost:5000/')
+	.constant('malarkey', malarkey)
+	.constant('moment', moment)
+	.config(config)
+	.config(routerConfig)
+	.run(runBlock)
+	.service('githubContributor', GithubContributorService)
+	.service('webDevTec', WebDevTecService)
+	.controller('MainController', MainController)
+	.controller('AuthController', AuthController)
+	.directive('acmeNavbar', NavbarDirective)
+	.directive('acmeMalarkey', MalarkeyDirective)
+	.directive('compareTo', CompareToDirective);
