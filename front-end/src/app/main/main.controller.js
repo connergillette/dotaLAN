@@ -1,8 +1,10 @@
 export class MainController {
 	constructor($http) {
 		'ngInject';
+
 		this.$http = $http;
 		this.getMessages();
+
 	}
 	getMessages() {
 		var vm = this;

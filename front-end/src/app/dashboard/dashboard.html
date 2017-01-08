@@ -1,0 +1,13 @@
+<h1 class="page-header">{{dashboard.user.ingame}}<h1>
+    <h2 class="text-center">{{dashboard.user.name}}</h2>
+
+<div class="container">
+    <div class="col-md-6 text-center">
+        <h2>{{dashboard.user.totalGames}} games played</h2>
+        <p>{{dashboard.user.gamesWon}}W - {{dashboard.user.gamesLost}}L</p>
+    </div>
+    <div class="col-md-6 text-center">
+        <h2>{{dashboard.user.mmr}} Solo MMR</h2>
+        <p>Preferred Positions: <span ng-repeat="position in dashboard.user.positions">{{position + " "}}</span></p>
+    </div>
+</div>

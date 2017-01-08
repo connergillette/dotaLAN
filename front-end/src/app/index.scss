@@ -38,6 +38,7 @@ body {
     text-align: center;
     font-size: 50px;
     padding-top: 30px;
+    border: none;
 }
 
 .custom-link:hover {
@@ -69,11 +70,21 @@ body {
     width: 100%;
     background-color: #227524;
     color: white;
+    border: none;
 }
 
 .navbar-brand {
     color: white;
     font-size: 30px;
+}
+
+.nav > li > a {
+    color: white;
+}
+
+.nav > li > a:hover {
+    color: #227524;
+    cursor: pointer;
 }
 
 //WELCOME

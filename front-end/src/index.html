@@ -22,11 +22,15 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-static-top">
+  <nav ng-controller="NavbarController as nav" class="navbar navbar-static-top">
     <div class="container">
       <a href="/">
         <div class="navbar-brand">dotaLAN</div>
       </a>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ui-sref="login" ng-hide="nav.isAuthenticated()">Log In</a></li>
+        <li><a ng-click="nav.logout()" ng-show="nav.isAuthenticated()">Logout</a></li>
+      </ul>
     </div>
   </nav>
   <!--[if lt IE 10]>

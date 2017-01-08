@@ -1,15 +1,10 @@
 <h1 class="page-header">Log in.</h1>
 <div class="center-panel center-block">
-  <div class="form-group">
-    <input class="form-control col-md-12" placeholder="Email" ng-model="main.email" />
-    <input class="form-control col-md-12" placeholder="Password" ng-model="main.pass" type="password" />
+  <form ng-submit="auth.login()">
+    <input class="form-control col-md-12" placeholder="Email" ng-model="auth.login.user.email" />
+    <input class="form-control col-md-12" type="password" placeholder="Password" ng-model="auth.login.user.pwd" />
     <div class="center-button">
-      <button type="button" ng-click="main.loginAttempt()" class="btn btn-default button-panel-button center-block">Log in</button>
+      <button type="submit" class="btn btn-default button-panel-button center-block">Log in</button>
     </div>
-  </div>
-  <div class="form-group">
-    <ul class="list-group">
-      <li ng-repeat="user in auth.users" class="list-group-item">{{user.name}} - {{user.email}}</li>
-    </ul>
-  </div>
+  </form>
 </div>

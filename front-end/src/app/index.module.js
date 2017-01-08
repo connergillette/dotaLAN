@@ -16,6 +16,12 @@ import {
 	AuthController
 } from './auth/auth.controller';
 import {
+	NavbarController
+} from './components/navbar/navbar.controller';
+import {
+	DashboardController
+} from './dashboard/dashboard.controller';
+import {
 	CompareToDirective
 } from './directives/compareTo.directive';
 import {
@@ -42,6 +48,8 @@ angular.module('dotaLanFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize
 	.service('webDevTec', WebDevTecService)
 	.controller('MainController', MainController)
 	.controller('AuthController', AuthController)
+	.controller('NavbarController', NavbarController)
+	.controller('DashboardController', DashboardController)
 	.directive('acmeNavbar', NavbarDirective)
 	.directive('acmeMalarkey', MalarkeyDirective)
 	.directive('compareTo', CompareToDirective);
