@@ -25,10 +25,11 @@ app.post('/auth/register', auth.register);
 
 app.post('/auth/login', auth.login);
 
-app.post('/api/event', checkAuthenticated, events.post);
+app.post('/api/event/', checkAuthenticated, events.post);
 
-app.get('/api/event', function(req, res, next) {
-	console.log(req.params);
+app.get('/api/event/:id', function(req, res, next) {
+	res.id = req.params.id;
+	console.log(res.id + " - from server.js");
 	next();
 }, events.get);
 

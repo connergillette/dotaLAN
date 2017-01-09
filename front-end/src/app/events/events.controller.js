@@ -7,7 +7,7 @@ export class EventsController {
 	}
 
 	addEvent() {
-		this.$http.post('http://localhost:5000/api/event', {
+		this.$http.post('http://localhost:5000/api/event/', {
 			event: this.event
 		});
 	}
@@ -15,11 +15,12 @@ export class EventsController {
 	getEventInfo(params) {
 		var vm = this;
 
-		this.$http.get('http://localhost:5000/api/event/', {
-			id: params.id
-		}).then(function(result) {
-			vm.event = result.data;
-			console.log(result.data + "!!!!!!!!!!!!");
+		this.$http.get('http://localhost:5000/api/event/' + params.id).then(function(event) {
+			vm.event = event.data;
 		});
+		// .then(function(result) {
+		// 	vm.event = result.data;
+		// 	// console.log(result.data + "!!!!!!!!!!!!");
+		// });
 	}
 }
