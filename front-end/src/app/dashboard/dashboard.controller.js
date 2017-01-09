@@ -17,7 +17,11 @@ export class DashboardController {
 	getUserInfo() {
 		var vm = this;
 		this.$http.get('http://localhost:5000/dashboard/').then(function(result) {
-			vm.user = result.data;
+			if (!result.data) {
+				window.location = "/#/login";
+			} else {
+				vm.user = result.data;
+			}
 		});
 	}
 }

@@ -22,6 +22,9 @@ import {
 	DashboardController
 } from './dashboard/dashboard.controller';
 import {
+	EventsController
+} from './events/events.controller';
+import {
 	CompareToDirective
 } from './directives/compareTo.directive';
 import {
@@ -50,6 +53,7 @@ angular.module('dotaLanFront', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize
 	.controller('AuthController', AuthController)
 	.controller('NavbarController', NavbarController)
 	.controller('DashboardController', DashboardController)
+	.controller('EventsController', EventsController)
 	.directive('acmeNavbar', NavbarDirective)
 	.directive('acmeMalarkey', MalarkeyDirective)
 	.directive('compareTo', CompareToDirective);

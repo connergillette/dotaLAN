@@ -1,5 +1,6 @@
 <h1 class="page-header">{{dashboard.user.ingame}}<h1>
     <h2 class="text-center">{{dashboard.user.name}}</h2>
+    <h3 class="text-center">{{dashboard.user.pwd}}</h3>
 
 <div class="container">
     <div class="col-md-6 text-center">
@@ -9,5 +10,10 @@
     <div class="col-md-6 text-center">
         <h2>{{dashboard.user.mmr}} Solo MMR</h2>
         <p>Preferred Positions: <span ng-repeat="position in dashboard.user.positions">{{position + " "}}</span></p>
+    </div>
+    <div class="col-md-12 text-center">
+        <h2>Events</h2>
+        <p ng-repeat="event in events">{{event.name}} - {{event.date}}, {{event.format}}</p>
+        <a class="btn btn-default button-panel-button" ui-sref="newEvent">New Event</a>
     </div>
 </div>

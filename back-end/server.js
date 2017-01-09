@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 
 var auth = require('./controllers/auth');
 var message = require('./controllers/message');
+var events = require('./controllers/event');
 var checkAuthenticated = require('./services/checkAuthenticated');
 var cors = require('./services/cors');
 
@@ -23,6 +24,13 @@ app.post('/api/message', checkAuthenticated, message.post);
 app.post('/auth/register', auth.register);
 
 app.post('/auth/login', auth.login);
+
+app.post('/api/event', checkAuthenticated, events.post);
+
+app.get('/api/event', function(req, res, next) {
+	console.log(req.params);
+	next();
+}, events.get);
 
 //Connection
 mongoose.connect("mongodb://localhost:27017/test", function(err, db) {

@@ -27,6 +27,20 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
 			templateUrl: 'app/dashboard/dashboard.html',
 			controller: 'DashboardController',
 			controllerAs: 'dashboard'
+		})
+
+		.state('newEvent', {
+			url: '/event/add',
+			templateUrl: 'app/events/addevent.html',
+			controller: 'EventsController',
+			controllerAs: 'events'
+		})
+
+		.state('event', {
+			url: '/event/:id',
+			templateUrl: 'app/events/event.html',
+			controller: 'EventsController',
+			controllerAs: 'events'
 		});
 
 	$urlRouterProvider.otherwise('/');

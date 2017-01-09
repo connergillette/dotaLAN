@@ -8,5 +8,6 @@ export class NavbarController {
 
 	logout() {
 		this.$auth.logout();
+		window.location = "/";
 	}
 }

@@ -53,16 +53,16 @@ module.exports = {
 		});
 	},
 	dashboard: function(req, res) {
-		User.findOne({
-			_id: req.user
-		}, function(err, user) {
-			if (!user) {
-				return res.status(401).send({
-					message: 'Current user data could not be found'
-				});
-			}
-			res.send(user);
-		});
+		if (!req.user) {
+			res.send('');
+		} else {
+			User.findOne({
+				_id: req.user
+			}, function(err, user) {
+				user.pwd = '';
+				res.send(user);
+			});
+		}
 	}
 }
 

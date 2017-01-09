@@ -1,0 +1,24 @@
+<h1 class="page-header">Start a new event.</h1>
+<div class="container">
+  <form name="register" ng-submit="events.addEvent()">
+    <div class="button-panel center-block text-center">
+      <div class="form-group">
+        <input ng-model="events.event.name" type="text" class="form-control special-field" placeholder="Event Name" />
+        <input ng-model="events.event.date" type="date" class="form-control special-field" placeholder="Event Start Date" />
+      </div>
+      <div class="form-group">
+        <input ng-model="events.event.format" name="format" type="radio" value="bo3">Single Elimination <br />
+        <input ng-model="events.event.format" name="format" type="radio" value="bo5">Double Elimination
+      </div>
+      <div class="form-group">
+        Series are best of <input ng-model="events.event.bestOf" type="number" value="3" />
+      </div>
+      <div class="form-group">
+        Player dotaLan emails, separated by commas <input ng-model="events.event.players" type="text" />
+      </div>
+    </div>
+    <div class="center-button">
+      <button type="submit" class="btn btn-default button-panel-button center-block">Add Event</button>
+    </div>
+  </form>
+</div>
