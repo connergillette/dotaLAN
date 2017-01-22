@@ -1,7 +1,7 @@
 <h1 class="page-header">{{events.event.name}}<h1>
-    <h2 class="text-center">{{events.event.date.substring(0, 10)}}</h2>
-    <h3 class="text-center">{{events.event.players}}</h3>
-    <h3 class="text-center">{{events.event.bestOf}}</h3>
-    <h3 class="text-center">{{events.event.format}}</h3>
+    <h2 class="text-center">Date: {{events.event.date.substring(0, 10)}}</h2>
+    <h3 class="text-center">Players: {{events.event.players}}</h3>
+    <h3 class="text-center">Best of: {{events.event.bestOf}}</h3>
+    <h3 class="text-center">Elimination: {{events.event.format}}</h3>
 
-    <h3 class="text-center">{{events.event.user}}</h3>
+    <h3 class="text-center">Organized by: {{events.event.user.name}}</h3>
