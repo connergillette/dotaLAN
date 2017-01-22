@@ -5,9 +5,6 @@ module.exports = mongoose.model('User', {
 	ingame: String,
 	email: String,
 	pwd: String,
-	mmr: Number,
-	totalGames: Number,
-	gamesWon: Number,
-	gamesLost: Number,
-	positions: Array
+	steam_id: Number,
+	events: Array
 });

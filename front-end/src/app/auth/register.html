@@ -12,9 +12,6 @@
         <input ng-model="auth.user.email" type="email" class="form-control col-md-12" placeholder="Email" ng-model="auth.user.email" />
       </div>
       <div class="form-group">
-        <input type="email" class="form-control col-md-12" placeholder="Confirm Email" />
-      </div>
-      <div class="form-group">
         <input ng-model="auth.user.pwd" name="pwd" type="password" class="form-control col-md-12" placeholder="Password" />
       </div>
       <div class="form-group">
@@ -24,33 +21,8 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <input ng-model="auth.user.mmr" type="number" class="form-control col-md-12 special-field" placeholder="MMR" />
-      </div>
-      <div class="form-group">
-        <input ng-model="auth.user.totalGames" type="number" class="form-control col-md-12 special-field" placeholder="Total Games Played" />
-      </div>
-      <div class="form-group">
-        <input ng-model="auth.user.gamesWon" type="number" class="form-control col-md-12 special-field" placeholder="Games Won" />
-      </div>
-      <div class="form-group">
-        <input ng-model="auth.user.gamesLost" type="number" class="form-control col-md-12 special-field" placeholder="Games Lost" />
-      </div>
-      <div class="form-group">
-        <div>
-          <input ng-model="auth.user.position1" type="checkbox">One (Carry)</input>
-        </div>
-        <div>
-          <input ng-model="auth.user.position2" type="checkbox">Two (Mid)</input>
-        </div>
-        <div>
-          <input ng-model="auth.user.position3" type="checkbox">Three (Offlane)</input>
-        </div>
-        <div>
-          <input ng-model="auth.user.position4" type="checkbox">Four (Support)</input>
-        </div>
-        <div>
-          <input ng-model="auth.user.position5" type="checkbox">Five (Hard Support)</input>
-        </div>
+        <input ng-model="auth.user.steam_id" type="number" class="form-control col-md-12 special-field" placeholder="Steam ID" />
+        <p>This can be found using <a href=""><strong>this resource.</strong></a></p>
       </div>
     </div>
     <div class="center-button">

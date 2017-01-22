@@ -2,7 +2,8 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
+// var Dota2API = require('dota2-api');
+// var da = Dota2API.create('254EBE930E35967F545678C5FB925B1D');
 
 var auth = require('./controllers/auth');
 var message = require('./controllers/message');
@@ -29,7 +30,6 @@ app.post('/api/event/', checkAuthenticated, events.post);
 
 app.get('/api/event/:id', function(req, res, next) {
 	res.id = req.params.id;
-	console.log(res.id + " - from server.js");
 	next();
 }, events.get);
 

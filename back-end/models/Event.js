@@ -6,7 +6,7 @@ module.exports = mongoose.model('Event', {
 	format: String,
 	bestOf: String,
 	players: String,
-	admin: {
+	user: {
 		type: mongoose.Schema.ObjectId,
 		ref: 'User'
 	}

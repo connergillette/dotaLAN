@@ -3,8 +3,7 @@ export class MainController {
 		'ngInject';
 
 		this.$http = $http;
-		this.getMessages();
-
+		// this.getMessages();
 	}
 	getMessages() {
 		var vm = this;
@@ -18,5 +17,4 @@ export class MainController {
 			msg: this.message
 		});
 	}
-
 }

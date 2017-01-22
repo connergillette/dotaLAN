@@ -65,6 +65,10 @@ body {
     margin-bottom: 30px;
 }
 
+a:-webkit-any-link:hover {
+    color: #227524;
+}
+
 //NAVBAR
 .navbar {
     width: 100%;

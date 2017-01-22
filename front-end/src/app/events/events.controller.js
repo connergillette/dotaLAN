@@ -16,11 +16,10 @@ export class EventsController {
 		var vm = this;
 
 		this.$http.get('http://localhost:5000/api/event/' + params.id).then(function(event) {
+			if (!event) {
+				console.log('SOMETHING IS WRONG ' + event.name);
+			}
 			vm.event = event.data;
 		});
-		// .then(function(result) {
-		// 	vm.event = result.data;
-		// 	// console.log(result.data + "!!!!!!!!!!!!");
-		// });
 	}
 }
