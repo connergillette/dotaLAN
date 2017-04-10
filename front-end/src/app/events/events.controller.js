@@ -22,6 +22,7 @@ export class EventsController {
 				console.log('SOMETHING IS WRONG ' + event.name);
 			}
 			vm.event = event.data;
+			console.log(event.data.players)
 			// console.log(event.data.user.name);
 		});
 	}

@@ -20,6 +20,11 @@ app.get('/api/message', message.get);
 
 app.get('/dashboard/', checkAuthenticated, auth.dashboard);
 
+app.get('/player/:id', function(req, res, next) {
+	res.id = req.params.id;
+	next();
+}, auth.dashboard);
+
 app.post('/api/message', checkAuthenticated, message.post);
 
 app.post('/auth/register', auth.register);

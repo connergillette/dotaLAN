@@ -16,11 +16,12 @@ export class DashboardController {
 			var topHero;
 			// MOST PLAYED HERO
 			$http.get(OpenDotaAPI + "players/" + vm.user.steam_id + "/heroes").then(function(result) {
-				// var heroID = result.data[0].hero_id - 2;
-				// topHero = heroList.data[heroID];
-				// vm.topHero = topHero;
 				var heroID = result.data[0].hero_id;
-				topHero = heroList.data[heroID - 2];
+				if (heroID == 1) {
+					topHero = heroList.data[heroID - 1];
+				} else {
+					topHero = heroList.data[heroID - 2]
+				}
 				vm.topHero = topHero;
 			});
 			// WIN / LOSS / TOTAL GAMES
@@ -28,6 +29,7 @@ export class DashboardController {
 				vm.wins = result.data.win;
 				vm.losses = result.data.lose;
 				vm.total_games = result.data.win + result.data.lose;
+				vm.win_rate = (vm.wins / vm.total_games * 100).toFixed(2);
 			});
 			// MMR
 			$http.get(OpenDotaAPI + '/players/' + vm.user.steam_id).then(function(result) {

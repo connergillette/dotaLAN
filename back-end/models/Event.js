@@ -9,5 +9,9 @@ module.exports = mongoose.model('Event', {
 	user: {
 		type: mongoose.Schema.ObjectId,
 		ref: 'User'
-	}
+	},
+	players: [{
+		type: mongoose.Schema.ObjectId,
+		ref: 'User'
+	}]
 });

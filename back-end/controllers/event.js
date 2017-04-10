@@ -6,28 +6,41 @@ module.exports = {
 	get: function(req, res) {
 		Event.findOne({
 			_id: req.params.id
-		}).populate('user').exec(function(err, result) {
-			// console.log(result + ' - from event.js GET');
+		}).populate('user players').exec(function(err, result) {
+			console.log(result.players);
 			res.send(result);
 			res.status(200);
 		})
 	},
 	post: function(req, res) {
-		// console.log(req.user + ' - from event.js');
+		var count = 0;
+		var players = [];
 		User.findOne({
 			_id: req.user
-		}).exec(function(err, user) {
+		}, function(err, user) {
 			// console.log(user + ' - from event.js');
 			req.body.event.user = user;
+			req.body.event.players = req.body.event.players.split(",");
+			for (player in req.body.event.players) {
+				User.findOne({
+					email: req.body.event.players[player].trim()
+				}, function(err, user) {
+					if (user) {
+						players[count] = user;
+						count++;
+					} else {
+						console.log(raw_players[player].trim() + ' was not found');
+					}
+				});
+			}
 		}).then(function() {
+			req.body.event.players = players;
 			var event = new Event(req.body.event);
-
-			// console.log(event.user + ' - from event.js');
 
 			event.save();
 			console.log(event);
 
 			res.status(200);
-		});
+		})
 	}
 }
