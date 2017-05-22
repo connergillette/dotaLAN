@@ -55,7 +55,7 @@ export class DashboardController {
 		var vm = this;
 		this.$http.get('http://localhost:5000/dashboard/').then(function(result) {
 			if (!result.data) {
-				window.location = "/#/login";
+				window.location = "/#/";
 			} else {
 				vm.user = result.data;
 			}
