@@ -29,6 +29,8 @@ module.exports = {
 					token: createToken(result)
 				});
 			})
+
+			console.log(user);
 		});
 	},
 	login: function(req, res) {
