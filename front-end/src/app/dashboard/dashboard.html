@@ -1,21 +1,24 @@
-<h1 class="page-header">{{dashboard.user.ingame}}<h1>
-    <h2 class="text-center">{{dashboard.user.name}}</h2>
-
 <div class="container">
-    <div class="col-md-6 text-center">
-        <h2>{{dashboard.total_games}} games played with a {{dashboard.win_rate}}% win rate</h2>
-        <p>{{dashboard.wins}}W - {{dashboard.losses}}L</p>
+    <div class="col-md-6 user">
+            <h1 class="user-header">{{dashboard.user.ingame}}</h1>
+            <h2>{{dashboard.user.name}}</h2>
+
+            <p>{{dashboard.total_games}} games played with a {{dashboard.win_rate}}% win rate</p>
+            <p>{{dashboard.wins}}W - {{dashboard.losses}}L</p>
+            <p>{{dashboard.mmr}} Solo MMR, {{dashboard.mmr_est}} Estimated</p>
+            <p>Most Played Hero: {{dashboard.topHero.localized_name}}</p>
+            <p>Lane Role: {{dashboard.lane_role}}</p>
     </div>
-    <div class="col-md-6 text-center">
-        <h2>{{dashboard.mmr}} Solo MMR, {{dashboard.mmr_est}} Estimated</h2>
-    </div>
-    <div class="col-md-6 text-center">
-        <h2>Most Played Hero: {{dashboard.topHero.localized_name}}</h2>
-        <h2>Lane Role: {{dashboard.lane_role}}</h2>
-    </div>
-    <div class="col-md-12 text-center">
+    <div class="col-md-6 events">
         <h2><strong>Events<strong></h2>
-        <p ng-repeat="event in events">{{event.name}} - {{event.date}}, {{event.format}}</p>
+        <div class="dashboard-event-container" ng-repeat="event in dashboard.user.events">
+            <a ng-href="#/event/{{event._id}}">
+                <div class="dashboard-event">
+                    <h3>{{event.name}}</h3><br />
+                {{event.date}}, {{event.format}} Elimination
+                </div>
+            </a>
+        </div>
         <a class="btn btn-default button-panel-button" ui-sref="newEvent">New Event</a>
     </div>
 </div>

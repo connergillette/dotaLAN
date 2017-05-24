@@ -30,16 +30,19 @@ module.exports = {
 				callback();
 			});
 		}, function(callback){
-			console.log("Finished!");
-			console.log(players);
-
-			console.log(req.user);
-
 			req.body.event.players = players;
 			var event = new Event(req.body.event);
-			event.save();
-			console.log(event);
 
+			User.findOne({
+				_id: req.user
+			}, function(err, user){
+				event.url = "#/event/" + event.id;
+				user.events.push(event);
+				user.save();
+			});
+
+			event.save();
+			console.log("'" + event.name + "' event created");
 			res.status(200);
 		});
 	}

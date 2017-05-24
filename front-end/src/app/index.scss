@@ -31,7 +31,7 @@ $icon-font-path: "../../bootstrap-sass/assets/fonts/bootstrap/";
 //GENERAL
 body {
     background-color: #d5edd6;
-    font-family: 'Hypatia Sans Pro Bold', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .page-header {
@@ -44,6 +44,19 @@ body {
 .custom-link:hover {
     color: #227524;
 }
+
+.masthead-banner {
+    width: 100%;
+    // background-image: url("https://images2.alphacoders.com/474/thumb-1920-474206.jpg");
+    background-color: white;
+    vertical-align: center;
+    padding: none;
+}
+
+.masthead-banner > h1 {
+    padding-bottom: 100px;
+}
+
 
 //FORM ITEMS
 .center-panel {
@@ -102,16 +115,54 @@ a:-webkit-any-link:hover {
     width: 20%;
     display: block;
     padding-top: 30px;
+    padding-left: 0px;
 }
 
 .button-panel-button {
-    display: block;
+    display: inline-block;
     background-color: #227524;
     color: white;
     font-size: 20px;
+    min-width: 100px;
+    border-radius: 0px;
 }
 
-//LOG IN
+//DASHBOARD
+.user {
+    background-color: gray;
+    border-radius: 2px;
+    color: white;
+}
+
+.user > p {
+    font-size: 26px;
+}
+
+.events {
+
+}
+
+.user-header {
+    font-size: 60px;
+}
+
+.dashboard-event-container > a:hover {
+    text-decoration: none;
+}
+
+.dashboard-event {
+    background-color: gray;
+    color: white;
+    padding-bottom: 10px;
+}
+
+.dashboard-event:hover {
+    background-color: #d3d3d3;
+}
+
+.dashboard-event > a:hover, .dashboard-event > h3:hover {
+    text-decoration: none;
+}
 
 /**
  *  Do not remove the comments below. It's the markers used by gulp-inject to inject

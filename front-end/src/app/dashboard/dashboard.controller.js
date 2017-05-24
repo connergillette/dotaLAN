@@ -44,6 +44,7 @@ export class DashboardController {
 		});
 	}
 
+	// Old message getter
 	// getMessages() {
 	// 	var vm = this;
 	// 	this.$http.get('http://localhost:5000/api/message').then(function(result) {

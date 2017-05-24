@@ -1,8 +1,15 @@
-<h1 class="page-header">{{events.event.name}}<h1>
-    <h2 class="text-center">Date: {{events.event.date.substring(0, 10)}}</h2>
-    <h2 class="text-center">Players:</h2>
-    <h3 class="text-center" ng-repeat="player in events.event.players"><a href="">{{player.ingame}}</a></h3>
-    <h3 class="text-center">Best of: {{events.event.bestOf}}</h3>
-    <h3 class="text-center">Elimination: {{events.event.format}}</h3>
+<div class="container">
+    <div class="col-md-6 user">
+            <h1 class="user-header">{{events.event.name}}</h1>
+            <p>Date: {{events.event.date.substring(0, 10)}}</p>
 
-    <h3 class="text-center">Organized by: {{events.event.user.name}}</h3>
+            <h2>Players:</h2>
+            <p ng-repeat="player in events.event.players"><a ng-href="#/player/{{player._id}}">{{player.ingame}}</a></h3>
+            <p>Best of: {{events.event.bestOf}}</p>
+            <p>Elimination: {{events.event.format}}</p>
+            <h3>Organized by: {{events.event.user.name}}</h3>
+    </div>
+    <div class="col-md-6 events">
+        <h2><strong>Event Details<strong></h2>
+    </div>
+</div>
