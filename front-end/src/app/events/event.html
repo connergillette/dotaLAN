@@ -4,7 +4,7 @@
             <p>Date: {{events.event.date.substring(0, 10)}}</p>
 
             <h2>Players:</h2>
-            <p ng-repeat="player in events.event.players"><a ng-href="#/player/{{player._id}}">{{player.ingame}}</a></h3>
+            <p ng-repeat="player in events.event.players"><a ng-href="#/player/{{player._id}}">{{player.ingame}}</a></p>
             <p>Best of: {{events.event.bestOf}}</p>
             <p>Elimination: {{events.event.format}}</p>
             <h3>Organized by: {{events.event.user.name}}</h3>
