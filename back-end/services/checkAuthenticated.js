@@ -19,7 +19,6 @@ module.exports = function checkAuthenticated(req, res, next) {
 		}
 
 		req.user = payload.sub;
-		console.log("Welcome back, " + req.user);
 		res.status(200);
 	}
 

@@ -2,6 +2,8 @@ var User = require('../models/user');
 var jwt = require('jwt-simple');
 var moment = require('moment');
 
+var https = require('https');
+
 module.exports = {
 	register: function(req, res) {
 		console.log(req.body);
@@ -10,27 +12,46 @@ module.exports = {
 			email: req.body.email
 		}, function(err, existingUser) {
 
-			if (existingUser)
+			if (existingUser) {
 				return res.status(409).send({
 					message: 'Email is already registered'
 				});
+			}
 
-			var user = new User(req.body);
-
-			user.positions = positionArray(req.body);
-
-			user.save(function(err, result) {
-				if (err) {
-					res.status(500).send({
-						message: err.message
+			var promise = new Promise(function(resolve, reject) {
+				https.get('https://api.opendota.com/api/players/' + req.body.steam_id, function(response) {
+					var text = '';
+					response.on('data', function(data) {
+						text += data;
 					});
-				}
-				res.status(200).send({
-					token: createToken(result)
-				});
-			})
 
-			console.log(user);
+					response.on('end', function() {
+						var json = JSON.parse(text);
+						console.log("PERSONA NAME: " + json.profile.personaname);
+						req.body.ingame = json.profile.personaname;
+						resolve();
+					});
+				});
+			});
+
+			promise.then(function() {
+				var user = new User(req.body);
+
+				user.positions = positionArray(req.body);
+
+				user.save(function(err, result) {
+					if (err) {
+						res.status(500).send({
+							message: err.message
+						});
+					}
+					res.status(200).send({
+						token: createToken(result)
+					});
+				})
+
+				console.log(user);
+			});
 		});
 	},
 	login: function(req, res) {
