@@ -33,6 +33,8 @@ app.post('/auth/login', auth.login);
 
 app.post('/api/event/', checkAuthenticated, events.post);
 
+app.post('/api/team/add', checkAuthenticated, events.createTeams)
+
 app.get('/api/event/:id', function(req, res, next) {
 	res.id = req.params.id;
 	next();

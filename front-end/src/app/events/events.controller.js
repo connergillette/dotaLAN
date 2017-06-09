@@ -2,6 +2,7 @@ export class EventsController {
 	constructor($http, $stateParams) {
 		'ngInject'
 		this.$http = $http;
+		this.players = [];
 
 		this.getEventInfo($stateParams);
 	}
@@ -23,7 +24,16 @@ export class EventsController {
 			}
 			vm.event = event.data;
 			console.log(event.data.players);
+			vm.players = event.data.players;
 			// console.log(event.data.user.name);
 		});
 	}
+
+	createTeams() {
+		var vm = this;
+		this.$http.post('http://localhost:5000/api/team/add', {
+			players: vm.players
+		});
+	}
+
 }
