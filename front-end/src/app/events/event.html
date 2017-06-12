@@ -11,6 +11,13 @@
     </div>
     <div class="col-md-6 events">
         <h2><strong>Event Details<strong></h2>
-        <button ng-click="events.createTeams()" type="submit" class="btn btn-default button-panel-button center-block">Add Event</button>
+            <div class="dashboard-event-container" ng-repeat="team in events.teams">
+                <div class="dashboard-event">
+                    <h3>{{team.name}}</h3>
+                    <span ng-repeat="player in team.players">{{player.ingame}}, </span>
+                    <h3>Average MMR: {{team.average_mmr}}</h3>
+                </div>
+            </div>
+        <button ng-click="events.createTeams()" type="submit" class="btn btn-default button-panel-button center-block">Create Teams</button>
     </div>
 </div>

@@ -43,5 +43,5 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
 			controllerAs: 'events'
 		});
 
-	$urlRouterProvider.otherwise('/');
+	$urlRouterProvider.otherwise('/dashboard');
 }

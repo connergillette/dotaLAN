@@ -5,6 +5,7 @@ export class EventsController {
 		this.players = [];
 
 		this.getEventInfo($stateParams);
+		this.getTeamInfo();
 	}
 
 	addEvent() {
@@ -27,6 +28,17 @@ export class EventsController {
 			vm.players = event.data.players;
 			// console.log(event.data.user.name);
 		});
+	}
+
+	getTeamInfo() {
+		var vm = this;
+		this.$http.get('http://localhost:5000/api/teams/').then(function(teams) {
+			if (!teams) {
+				console.log("SOMETHING IS WRONG. No teams found.");
+			}
+			// console.log(teams.data);
+			vm.teams = teams.data;
+		})
 	}
 
 	createTeams() {

@@ -1,4 +1,5 @@
 var Event = require('../models/event');
+var Team = require('../models/team');
 var User = require('../models/user');
 var jwt = require('jwt-simple');
 var async = require('async');
@@ -69,13 +70,47 @@ module.exports = {
 						callback();
 					});
 				});
-			}, function(callback) {
+			}, function() {
 				players.sort(function(a, b) {
 					return a.mmr - b.mmr;
 				});
 
-				console.log(players);
+				var team1 = new Team();
+				var team2 = new Team();
+
+				var total1 = 0;
+				var total2 = 0;
+
+				for (var i = 0; i < 10; i++) {
+					team1.players.push(players[i]);
+					total1 += players[i].mmr;
+					team2.players.push(players[i + 1]);
+					total2 += players[i + 1].mmr;
+					i += 1;
+				}
+
+				team1.average_mmr = parseInt(total1) / 5;
+				team1.name = "Team 1 Name";
+
+				team2.average_mmr = parseInt(total2) / 5;
+				team2.name = "Team 2 Name";
+
+				// console.log("TEAM 1: " + team1);
+				// console.log("TEAM 2: " + team2);
+
+				team1.save();
+				team2.save();
+
+				console.log("Teams saved.");
+
 			});
 		}
+	},
+	getTeams: function(req, res) {
+		Team.find({}).populate("players").exec(function(err, result) {
+			// console.log(result);
+			res.send(result);
+			res.status(200);
+		})
 	}
 }
