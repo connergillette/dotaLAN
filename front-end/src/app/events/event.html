@@ -19,5 +19,11 @@
                 </div>
             </div>
         <button ng-click="events.createTeams()" type="submit" class="btn btn-default button-panel-button center-block">Create Teams</button>
+        <button id="schedule-button" onclick="hideScheduleButton()" ng-click="events.createSchedule()" type="submit" class="btn btn-default button-panel-button center-block">Create Schedule</button>
     </div>
 </div>
+<script>
+    function hideScheduleButton(){
+        document.getElementById("schedule-button").classList.add("hidden");
+    }
+</script>

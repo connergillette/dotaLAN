@@ -12,9 +12,6 @@ export class EventsController {
 		this.$http.post('http://localhost:5000/api/event/', {
 			event: this.event
 		});
-		// .then(function(result) {
-		// 	console.log(result);
-		// });
 	}
 
 	getEventInfo(params) {

@@ -13,5 +13,9 @@ module.exports = mongoose.model('Event', {
 	players: [{
 		type: mongoose.Schema.ObjectId,
 		ref: 'User'
+	}],
+	schedule: [{
+		type: mongoose.Schema.ObjectId,
+		ref: 'Series'
 	}]
 });
