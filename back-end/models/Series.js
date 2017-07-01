@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
 module.exports = mongoose.model('Series', {
-	name: String,
 	date: Date,
 	bestOf: String,
 	match_id: String,
@@ -12,6 +11,5 @@ module.exports = mongoose.model('Series', {
 	dire: {
 		type: mongoose.Schema.ObjectId,
 		ref: 'Team'
-		``
 	}
 });

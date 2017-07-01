@@ -14,6 +14,10 @@ module.exports = mongoose.model('Event', {
 		type: mongoose.Schema.ObjectId,
 		ref: 'User'
 	}],
+	teams: [{
+		type: mongoose.Schema.ObjectId,
+		ref: 'Team'
+	}],
 	schedule: [{
 		type: mongoose.Schema.ObjectId,
 		ref: 'Series'

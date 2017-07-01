@@ -35,7 +35,9 @@ app.post('/auth/login', auth.login);
 
 app.post('/api/event/', checkAuthenticated, events.post);
 
-app.post('/api/team/add', checkAuthenticated, events.createTeams)
+app.post('/api/team/add', checkAuthenticated, events.createTeams);
+
+app.post('/api/schedule/add', checkAuthenticated, events.createSchedule);
 
 app.get('/api/event/:id', function(req, res, next) {
 	res.id = req.params.id;
