@@ -130,7 +130,7 @@ module.exports = {
 	},
 	createSchedule: function(req, res) {
 		var schedule = [];
-		console.log(req.body.event.teams);
+		console.log("TEAMS: " + req.body.event.teams);
 
 		for (var i = 0; i < req.body.event.teams.length - 1; i++) {
 			var series = new Series();
@@ -143,6 +143,7 @@ module.exports = {
 			schedule.push(series);
 
 			series.save();
+			console.log(series);
 			// TODO: Coin flip for side / pick, implement timing offsets,
 			// single / double elim, best of, optional match_id
 

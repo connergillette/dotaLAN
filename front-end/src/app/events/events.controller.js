@@ -25,6 +25,7 @@ export class EventsController {
 			vm.event = event.data;
 			vm.players = event.data.players;
 		});
+		return vm.event;
 	}
 
 	getTeamInfo() {
@@ -49,10 +50,9 @@ export class EventsController {
 
 	createSchedule() {
 		var vm = this;
-		console.log(vm.event);
-		this.$http.post('http://localhost:5000/api/schedule/add', {
-			event: vm.event
+		var event = this.getEventInfo(this.params);
+		this.$http.post('http://localhost:5000/api/schedule/add/' + this.params.id, {
+			event: event
 		}).then(this.getEventInfo(this.params));
 	}
-
 }
