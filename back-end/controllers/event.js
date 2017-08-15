@@ -54,6 +54,7 @@ module.exports = {
 			event.save();
 			console.log("'" + event.name + "' event created");
 			res.status(200);
+			res.send(event);
 		});
 	},
 	createTeams: function(req, res) {

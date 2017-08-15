@@ -12,7 +12,14 @@ export class EventsController {
 	addEvent() {
 		this.$http.post('http://localhost:5000/api/event/', {
 			event: this.event
+		}).then(function(result){
+			window.location = "/#/event/" + result.data._id;
 		});
+	}
+
+	redirectEvent(id) {
+		// window.location = "/#/event/" + id;
+		console.log(id);
 	}
 
 	getEventInfo(params) {
