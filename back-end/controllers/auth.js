@@ -1,6 +1,8 @@
 var User = require('../models/user');
+var Event = require('../models/event')
 var jwt = require('jwt-simple');
 var moment = require('moment');
+var async = require('async');
 
 var https = require('https');
 
@@ -77,17 +79,31 @@ module.exports = {
 	},
 	dashboard: function(req, res) {
 		if (!req.user) {
-			res.send('');
+			res.send();
 		} else {
 			User.findOne({
 				_id: req.user
 			}, function(err, user) {
+				async.eachOf(user.events, function(item, index, callback) {
+					Event.findOne({
+						_id: item._id
+					}, function(event) {
+						if (!event) {
+							user.events.splice(index, 1);
+							console.log("deleted item at index " + index);
+						} else {
+							console.log("event: " + item);
+						}
+						user.save();
+					});
+				});
 				user.pwd = '';
 				res.send(user);
 			});
 		}
 	}
 }
+
 
 function createToken(user) {
 	var payload = {
