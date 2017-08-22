@@ -6,13 +6,13 @@ export class EventsController {
 		this.params = $stateParams;
 
 		this.getEventInfo($stateParams);
-		this.getTeamInfo();
+		// this.getTeamInfo($stateParams);
 	}
 
 	addEvent() {
 		this.$http.post('http://localhost:5000/api/event/', {
 			event: this.event
-		}).then(function(result){
+		}).then(function(result) {
 			window.location = "/#/event/" + result.data._id;
 		});
 	}
@@ -31,20 +31,24 @@ export class EventsController {
 			console.log(event.data);
 			vm.event = event.data;
 			vm.players = event.data.players;
+			vm.teams = event.data.teams;
 		});
 		return vm.event;
 	}
 
-	getTeamInfo() {
-		var vm = this;
-		this.$http.get('http://localhost:5000/api/teams/').then(function(teams) {
-			if (!teams) {
-				console.log("SOMETHING IS WRONG. No teams found.");
-			}
-			// console.log(teams.data);
-			vm.teams = teams.data;
-		});
-	}
+	// getTeamInfo(params) {
+	// 	var vm = this;
+	// 	console.log("GETTING TEAM INFO...");
+	// 	this.$http.get('http://localhost:5000/api/teams/' + params.id).then(function(teams) {
+	// 		if (!teams) {
+	// 			console.log("SOMETHING IS WRONG. No teams found.");
+	// 		}
+	// 		console.log(teams);
+	// 		console.log("TEAMS DATA");
+	// 		console.log(teams.data);
+	// 		vm.teams = teams.data;
+	// 	});
+	// }
 
 	createTeams() {
 		var vm = this;

@@ -18,6 +18,11 @@ module.exports = {
 			populate: {
 				path: 'series'
 			}
+		}).populate({
+			path: 'teams',
+			populate: {
+				path: 'players'
+			}
 		}).exec(function(err, result) {
 			res.send(result);
 			res.status(200);
@@ -31,6 +36,24 @@ module.exports = {
 		req.body.event.user = req.user;
 
 		req.body.event.players = req.body.event.players.split(",");
+
+		User.findOne({
+			_id: req.user
+		}, function(err, user) {
+			var hasUser = false;
+			for (var i = 0; i < req.body.event.players.length; i++) {
+				if (req.body.event.players[i] == user.email) {
+					console.log("User already on list.");
+					hasUser = true;
+					break;
+				}
+				// console.log(req.body.event.players[i] + " does not match " + user.email);
+			}
+			if (!hasUser) {
+				req.body.event.players.push(user.email);
+				console.log("Admin user added to player list: " + user.email);
+			}
+		});
 
 		async.each(req.body.event.players, function(item, callback) {
 			User.findOne({
@@ -117,10 +140,18 @@ module.exports = {
 				// var updated = new Event(req.body.event);
 				// updated.save();
 				console.log("Current event: " + req.body.event.teams);
+				console.log(req.body.event._id);
 
-				Event.update({
-					_id: mongoose.Types.ObjectId(req.body.event._id)
-				}, req.body.event);
+				Event.findByIdAndUpdate({
+					_id: req.body.event._id
+				}, req.body.event, function(err, newEvent) {
+					if (err) {
+						console.log(err);
+					} else {
+						console.log("NEW EVENT");
+						console.log(newEvent);
+					}
+				});
 
 				// console.log("UPDATED EVENT: " + updated);
 
@@ -162,10 +193,25 @@ module.exports = {
 		res.status(200);
 	},
 	getTeams: function(req, res) {
-		Team.find({}).populate("players").exec(function(err, result) {
-			// console.log(result);
-			res.send(result);
-			res.status(200);
-		})
+		Event.findOne({
+			_id: req.params.id
+		}).populate("teams").exec(function(err, event) {
+			var teams = [];
+			console.log(event);
+			async.each(event.teams, function(team, callback) {
+				console.log(team._id);
+				Team.find({
+					_id: team._id
+				}).populate("players").exec(function(err, result) {
+					console.log(result);
+					teams.push(result);
+				});
+			}, function() {
+				console.log("CALL WENT THROUGH");
+				console.log(teams);
+				res.send(teams);
+				res.status(200);
+			});
+		});
 	}
 }
