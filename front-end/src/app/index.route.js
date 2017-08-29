@@ -41,6 +41,13 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
 			templateUrl: 'app/events/event.html',
 			controller: 'EventsController',
 			controllerAs: 'events'
+		})
+
+		.state('player', {
+			url: '/player/:id',
+			templateUrl: 'app/dashboard/dashboard.html',
+			controller: 'DashboardController',
+			controllerAs: 'dashboard'
 		});
 
 	$urlRouterProvider.otherwise('/dashboard');

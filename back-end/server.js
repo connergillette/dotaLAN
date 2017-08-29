@@ -23,7 +23,7 @@ app.get('/dashboard/', checkAuthenticated, auth.dashboard);
 app.get('/player/:id', function(req, res, next) {
 	res.id = req.params.id;
 	next();
-}, auth.dashboard);
+}, auth.player);
 
 app.get('/api/teams/:id', events.getTeams);
 

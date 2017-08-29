@@ -139,8 +139,8 @@ module.exports = {
 
 				// var updated = new Event(req.body.event);
 				// updated.save();
-				console.log("Current event: " + req.body.event.teams);
-				console.log(req.body.event._id);
+				// console.log("Current event: " + req.body.event.teams);
+				// console.log(req.body.event._id);
 
 				Event.findByIdAndUpdate({
 					_id: req.body.event._id
@@ -148,8 +148,8 @@ module.exports = {
 					if (err) {
 						console.log(err);
 					} else {
-						console.log("NEW EVENT");
-						console.log(newEvent);
+						// console.log("NEW EVENT");
+						// console.log(newEvent);
 					}
 				});
 

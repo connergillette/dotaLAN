@@ -78,6 +78,7 @@ module.exports = {
 		});
 	},
 	dashboard: function(req, res) {
+		console.log("user specified: " + req.user);
 		if (!req.user) {
 			res.send();
 		} else {
@@ -87,12 +88,42 @@ module.exports = {
 				async.eachOf(user.events, function(item, index, callback) {
 					Event.findOne({
 						_id: item._id
-					}, function(event) {
+					}).exec(function(err, event) {
+						// console.log("PLAYER OBJ EVENT: " + item._id);
+						// console.log("DB EVENT: " + event);
 						if (!event) {
 							user.events.splice(index, 1);
-							console.log("deleted item at index " + index);
+							// console.log("deleted item at index " + index);
 						} else {
-							console.log("event: " + item);
+							// console.log("!!!! event: " + item);
+						}
+						user.save();
+					});
+				});
+				user.pwd = '';
+				res.send(user);
+			});
+		}
+	},
+	player: function(req, res) {
+		console.log("user specified: " + req.params.id);
+		if (!req.params.id) {
+			res.send();
+		} else {
+			User.findOne({
+				_id: req.params.id
+			}, function(err, user) {
+				async.eachOf(user.events, function(item, index, callback) {
+					Event.findOne({
+						_id: item._id
+					}).exec(function(err, event) {
+						// console.log("PLAYER OBJ EVENT: " + item._id);
+						// console.log("DB EVENT: " + event);
+						if (!event) {
+							user.events.splice(index, 1);
+							// console.log("deleted item at index " + index);
+						} else {
+							// console.log("!!!! event: " + item);
 						}
 						user.save();
 					});

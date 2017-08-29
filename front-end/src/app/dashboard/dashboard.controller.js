@@ -2,12 +2,18 @@ var OpenDotaAPI = 'https://api.opendota.com/api/';
 var heroList = [];
 
 export class DashboardController {
-	constructor($http) {
+	constructor($http, $stateParams) {
 		'ngInject';
 
 		this.$http = $http;
 
-		this.getUserInfo();
+		console.log($stateParams.id);
+		if ($stateParams.id) {
+			this.getPlayerInfo($stateParams);
+		} else {
+			console.log("this shouldn't run...");
+			this.getUserInfo($stateParams);
+		}
 
 		var vm = this;
 		this.$http.get(OpenDotaAPI + '/heroes').then(function(heroes) {
@@ -59,6 +65,19 @@ export class DashboardController {
 				window.location = "/#/";
 			} else {
 				vm.user = result.data;
+			}
+		});
+	}
+
+	getPlayerInfo(params) {
+		var vm = this;
+		this.$http.get('http://localhost:5000/player/' + params.id).then(function(result) {
+			console.log(result);
+			if (!result.data) {
+				window.location = "/#/";
+			} else {
+				vm.user = result.data;
+				console.log(result.data);
 			}
 		});
 	}
