@@ -16,7 +16,7 @@ module.exports = {
 		}).populate('user players teams').populate({
 			path: 'schedule',
 			populate: {
-				path: 'series'
+				path: 'radiant dire'
 			}
 		}).populate({
 			path: 'teams',
@@ -162,12 +162,15 @@ module.exports = {
 	},
 	createSchedule: function(req, res) {
 		var schedule = [];
-		console.log("TEAMS: " + req.body.event.teams);
+		console.log("TEAMS: ");
+		console.log(req.body.event.teams);
 
-		for (var i = 0; i < req.body.event.teams.length - 1; i++) {
+		for (var i = 0; i < req.body.event.teams.length / 2; i++) {
 			var series = new Series();
 			series.radiant = req.body.event.teams[i];
-			series.dire = req.body.event.teams[i++];
+			console.log(i + " RADIANT: " + series.radiant);
+			series.dire = req.body.event.teams[i + 1];
+			console.log((i + 1) + " DIRE: " + series.dire);
 			series.date = req.body.event.date;
 
 			series.bestOf = req.body.event.bestOf;
@@ -184,10 +187,14 @@ module.exports = {
 
 		// console.log("CURRENT SCHEDULE ARRAY: " + schedule);
 		req.body.event.schedule = schedule;
-		console.log(schedule);
-		Event.update({
-			_id: mongoose.Types.ObjectId(req.body.event._id)
-		}, req.body.event);
+
+		Event.findByIdAndUpdate(req.body.event._id, {
+			schedule: req.body.event.schedule
+		}, function(err, result) {
+			if (err) {
+				console.log(err);
+			}
+		});
 		// res.send(schedule);
 		// console.log("POST UPDATE: " + req.body.event.schedule);
 		res.status(200);
