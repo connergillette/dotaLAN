@@ -70,9 +70,7 @@ module.exports = {
 				user.save();
 			});
 
-			event.save(function (err) {
-  			if (err) console.log(err);
-			});
+			event.save();
 			console.log("'" + event.name + "' event created");
 			console.log(event);
 			res.status(200);
