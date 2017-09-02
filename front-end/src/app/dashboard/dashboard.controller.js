@@ -11,7 +11,6 @@ export class DashboardController {
 		if ($stateParams.id) {
 			this.getPlayerInfo($stateParams);
 		} else {
-			console.log("this shouldn't run...");
 			this.getUserInfo($stateParams);
 		}
 

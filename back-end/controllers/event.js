@@ -25,6 +25,7 @@ module.exports = {
 			}
 		}).exec(function(err, result) {
 			res.send(result);
+			console.log(result);
 			res.status(200);
 		});
 	},
@@ -76,6 +77,7 @@ module.exports = {
 
 			event.save();
 			console.log("'" + event.name + "' event created");
+			console.log(event);
 			res.status(200);
 			res.send(event);
 		});
