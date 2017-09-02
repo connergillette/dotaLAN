@@ -32,7 +32,7 @@ export class EventsController {
 			vm.event = event.data;
 			vm.players = event.data.players;
 			vm.teams = event.data.teams;
-			vm.schedule = event.data.schedule[0];
+			// vm.schedule = event.data.schedule[0];
 		});
 		return vm.event;
 	}
