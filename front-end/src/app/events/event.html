@@ -1,23 +1,15 @@
 <div class="container">
-  <div class="col-md-6 user">
-    <h1 class="user-header">{{events.event.name}}</h1>
-    <p>Date: {{events.event.date.substring(0, 10)}}</p>
+    <div class="col-md-6 user">
+            <h1 class="user-header">{{events.event.name}}</h1>
+            <p>Date: {{events.event.date.substring(0, 10)}}</p>
 
-    <h2>Players:</h2>
-    <p ng-repeat="player in events.event.players"><a ng-href="#/player/{{player._id}}">{{player.ingame}}</a></p>
-    <p>Best of: {{events.event.bestOf}}</p>
-    <p>Elimination: {{events.event.format}}</p>
-    <h3>Organized by: {{events.event.user.name}}</h3>
-  </div>
-  <div class="col-md-6 events">
-    <h2><strong>Event Details<strong></h2>
-    <div class="dashboard-event-container" ng-repeat="team in events.teams">
-      <div class="dashboard-event">
-        <h3>{{team.name}}</h3>
-        <span ng-repeat="player in team.players">{{player.ingame}}, </span>
-        <h3>Average MMR: {{team.average_mmr}}</h3>
-      </div>
+            <h2>Players:</h2>
+            <p ng-repeat="player in events.event.players"><a ng-href="#/player/{{player._id}}">{{player.ingame}}</a></p>
+            <p>Best of: {{events.event.bestOf}}</p>
+            <p>Elimination: {{events.event.format}}</p>
+            <h3>Organized by: {{events.event.user.name}}</h3>
     </div>
+<<<<<<< HEAD
     <button id="teams-button" ng-click="events.createTeams()" onclick="hideButton('teams')" type="submit" class="btn btn-default button-panel-button center-block">Create Teams</button>
     <div class="dashboard-event-container">
       <div class="dashboard-event" ng-repeat="series in events.schedule">
@@ -44,4 +36,28 @@
   function expand(id) {
     document.getElementById(id).style.height
   }
+=======
+    <div class="col-md-6 events">
+        <h2><strong>Event Details<strong></h2>
+            <div class="dashboard-event-container" ng-repeat="team in events.teams">
+                <div class="dashboard-event">
+                    <h3>{{team.name}}</h3>
+                    <span ng-repeat="player in team.players">{{player.ingame}}, </span>
+                    <h3>Average MMR: {{team.average_mmr}}</h3>
+                </div>
+            </div>
+        <button id="teams-button" ng-click="events.createTeams()" onclick="hideButton('teams')" type="submit" class="btn btn-default button-panel-button center-block">Create Teams</button>
+        <div class="dashboard-event-container" ng-repeat="series in events.event.schedule.series_list">
+            <div class="dashboard-event">
+                <h3>{{series.radiant.name}} VS. {{series.dire.name}}</h3>
+            </div>
+        </div>
+        <button id="schedule-button" onclick="hideButton('schedule')" ng-click="events.createSchedule()" type="submit" class="btn btn-default button-panel-button center-block">Create Schedule</button>
+    </div>
+</div>
+<script>
+    function hideButton(button){
+        document.getElementById(button + "-button").classList.add("hidden");
+    }
+>>>>>>> parent of a889400... Modify README and add basic schedule functionality
 </script>
