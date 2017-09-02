@@ -32,10 +32,7 @@ export class EventsController {
 			vm.event = event.data;
 			vm.players = event.data.players;
 			vm.teams = event.data.teams;
-<<<<<<< HEAD
 			vm.schedule = event.data.schedule;
-=======
->>>>>>> parent of a889400... Modify README and add basic schedule functionality
 		});
 		return vm.event;
 	}
