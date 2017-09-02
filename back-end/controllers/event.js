@@ -38,23 +38,23 @@ module.exports = {
 
 		req.body.event.players = req.body.event.players.split(",");
 
-		User.findOne({
-			_id: req.user
-		}, function(err, user) {
-			var hasUser = false;
-			for (var i = 0; i < req.body.event.players.length; i++) {
-				if (req.body.event.players[i] == user.email) {
-					console.log("User already on list.");
-					hasUser = true;
-					break;
-				}
-				// console.log(req.body.event.players[i] + " does not match " + user.email);
-			}
-			if (!hasUser) {
-				req.body.event.players.push(user.email);
-				console.log("Admin user added to player list: " + user.email);
-			}
-		});
+		// User.findOne({
+		// 	_id: req.user
+		// }, function(err, user) {
+		// 	var hasUser = false;
+		// 	for (var i = 0; i < req.body.event.players.length; i++) {
+		// 		if (req.body.event.players[i] == user.email) {
+		// 			console.log("User already on list.");
+		// 			hasUser = true;
+		// 			break;
+		// 		}
+		// 		// console.log(req.body.event.players[i] + " does not match " + user.email);
+		// 	}
+		// 	if (!hasUser) {
+		// 		req.body.event.players.push(user.email);
+		// 		console.log("Admin user added to player list: " + user.email);
+		// 	}
+		// });
 
 		async.each(req.body.event.players, function(item, callback) {
 			User.findOne({
