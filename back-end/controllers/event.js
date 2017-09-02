@@ -18,11 +18,6 @@ module.exports = {
 			populate: {
 				path: 'series'
 			}
-		}).populate({
-			path: 'teams',
-			populate: {
-				path: 'players'
-			}
 		}).exec(function(err, result) {
 			res.send(result);
 			console.log(result);
@@ -144,18 +139,10 @@ module.exports = {
 				// var updated = new Event(req.body.event);
 				// updated.save();
 				console.log("Current event: " + req.body.event.teams);
-				console.log(req.body.event._id);
 
-				Event.findByIdAndUpdate({
-					_id: req.body.event._id
-				}, req.body.event, function(err, newEvent) {
-					if (err) {
-						console.log(err);
-					} else {
-						console.log("NEW EVENT");
-						console.log(newEvent);
-					}
-				});
+				Event.update({
+					_id: mongoose.Types.ObjectId(req.body.event._id)
+				}, req.body.event);
 
 				// console.log("UPDATED EVENT: " + updated);
 
@@ -197,25 +184,10 @@ module.exports = {
 		res.status(200);
 	},
 	getTeams: function(req, res) {
-		Event.findOne({
-			_id: req.params.id
-		}).populate("teams").exec(function(err, event) {
-			var teams = [];
-			console.log(event);
-			async.each(event.teams, function(team, callback) {
-				console.log(team._id);
-				Team.find({
-					_id: team._id
-				}).populate("players").exec(function(err, result) {
-					console.log(result);
-					teams.push(result);
-				});
-			}, function() {
-				console.log("CALL WENT THROUGH");
-				console.log(teams);
-				res.send(teams);
-				res.status(200);
-			});
-		});
+		Team.find({}).populate("players").exec(function(err, result) {
+			// console.log(result);
+			res.send(result);
+			res.status(200);
+		})
 	}
 }
