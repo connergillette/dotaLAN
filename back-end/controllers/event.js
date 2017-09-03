@@ -16,11 +16,16 @@ module.exports = {
 		}).populate('user players teams').populate({
 			path: 'schedule',
 			populate: {
-				path: 'series'
+				path: 'radiant dire'
+			}
+		}).populate({
+			path: 'teams',
+			populate: {
+				path: 'players'
 			}
 		}).exec(function(err, result) {
 			res.send(result);
-			console.log(result);
+			// console.log(result);
 			res.status(200);
 		});
 	},
@@ -33,33 +38,35 @@ module.exports = {
 
 		req.body.event.players = req.body.event.players.split(",");
 
-		// User.findOne({
-		// 	_id: req.user
-		// }, function(err, user) {
-		// 	var hasUser = false;
-		// 	for (var i = 0; i < req.body.event.players.length; i++) {
-		// 		if (req.body.event.players[i] == user.email) {
-		// 			console.log("User already on list.");
-		// 			hasUser = true;
-		// 			break;
-		// 		}
-		// 		// console.log(req.body.event.players[i] + " does not match " + user.email);
-		// 	}
-		// 	if (!hasUser) {
-		// 		req.body.event.players.push(user.email);
-		// 		console.log("Admin user added to player list: " + user.email);
-		// 	}
-		// });
+		User.findOne({
+			_id: req.user
+		}, function(err, user) {
+			var hasUser = false;
+			for (var i = 0; i < req.body.event.players.length; i++) {
+				if (req.body.event.players[i] == user.email) {
+					console.log("User already on list.");
+					hasUser = true;
+					break;
+				}
+				// console.log(req.body.event.players[i] + " does not match " + user.email);
+			}
+			if (!hasUser) {
+				req.body.event.players.push(user.email);
+				console.log("Admin user added to player list: " + user.email);
+			}
+		});
 
 		async.each(req.body.event.players, function(item, callback) {
 			User.findOne({
 				email: item.trim()
 			}, function(err, user) {
 				players.push(user);
+				console.log(user);
 				callback();
 			});
 		}, function(callback) {
 			req.body.event.players = players;
+			// console.log(players);
 			var event = new Event(req.body.event);
 
 			User.findOne({
@@ -70,9 +77,13 @@ module.exports = {
 				user.save();
 			});
 
-			event.save();
+			// TODO: Handle this
+			event.save(function(err){
+				if(err){
+					console.log(err);
+				}
+			});
 			console.log("'" + event.name + "' event created");
-			console.log(event);
 			res.status(200);
 			res.send(event);
 		});
@@ -136,11 +147,10 @@ module.exports = {
 
 				// var updated = new Event(req.body.event);
 				// updated.save();
-				console.log("Current event: " + req.body.event.teams);
-
-				Event.update({
-					_id: mongoose.Types.ObjectId(req.body.event._id)
-				}, req.body.event);
+				// console.log("Current event: " + req.body.event.teams);
+				Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result){
+					console.log(result);
+				});
 
 				// console.log("UPDATED EVENT: " + updated);
 
@@ -151,12 +161,12 @@ module.exports = {
 	},
 	createSchedule: function(req, res) {
 		var schedule = [];
-		console.log("TEAMS: " + req.body.event.teams);
+		// console.log("TEAMS: " + req.body.event.teams);
 
 		for (var i = 0; i < req.body.event.teams.length - 1; i++) {
 			var series = new Series();
 			series.radiant = req.body.event.teams[i];
-			series.dire = req.body.event.teams[i++];
+			series.dire = req.body.event.teams[i + 1];
 			series.date = req.body.event.date;
 
 			series.bestOf = req.body.event.bestOf;
@@ -164,7 +174,7 @@ module.exports = {
 			schedule.push(series);
 
 			series.save();
-			console.log(series);
+			// console.log(series);
 			// TODO: Coin flip for side / pick, implement timing offsets,
 			// single / double elim, best of, optional match_id
 
@@ -173,11 +183,9 @@ module.exports = {
 
 		// console.log("CURRENT SCHEDULE ARRAY: " + schedule);
 		req.body.event.schedule = schedule;
-		console.log(schedule);
-		Event.update({
-			_id: mongoose.Types.ObjectId(req.body.event._id)
-		}, req.body.event);
-		// res.send(schedule);
+		// console.log(schedule);
+		Event.findByIdAndUpdate(req.body.event._id, req.body.event);
+		res.send(schedule);
 		// console.log("POST UPDATE: " + req.body.event.schedule);
 		res.status(200);
 	},

@@ -6,7 +6,6 @@ export class EventsController {
 		this.params = $stateParams;
 
 		this.getEventInfo($stateParams);
-		this.getTeamInfo();
 	}
 
 	addEvent() {
@@ -33,7 +32,9 @@ export class EventsController {
 			vm.players = event.data.players;
 			vm.teams = event.data.teams;
 			vm.schedule = event.data.schedule;
+			console.log(event);
 		});
+		this.getTeamInfo();
 		return vm.event;
 	}
 
