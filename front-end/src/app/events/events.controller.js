@@ -23,7 +23,7 @@ export class EventsController {
 
 	getEventInfo(params) {
 		var vm = this;
-		this.$http.get('http://localhost:5000/api/event/' + params.id).then(function(event) {
+		this.$http.get('http://localhost:5000/api/event/' + this.params.id).then(function(event) {
 			if (!event) {
 				console.log('SOMETHING IS WRONG ' + event.name);
 			}
@@ -38,13 +38,16 @@ export class EventsController {
 		return vm.event;
 	}
 
-	getTeamInfo() {
+	getTeamInfo(params) {
 		var vm = this;
-		this.$http.get('http://localhost:5000/api/teams/').then(function(teams) {
+		console.log("GETTING TEAM INFO...");
+		this.$http.get('http://localhost:5000/api/teams/' + this.params.id).then(function(teams) {
 			if (!teams) {
 				console.log("SOMETHING IS WRONG. No teams found.");
 			}
-			// console.log(teams.data);
+			console.log(teams);
+			console.log("TEAMS DATA");
+			console.log(teams.data);
 			vm.teams = teams.data;
 		});
 	}

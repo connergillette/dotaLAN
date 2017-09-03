@@ -192,10 +192,26 @@ module.exports = {
 		res.status(200);
 	},
 	getTeams: function(req, res) {
-		Team.find({}).populate("players").exec(function(err, result) {
-			// console.log(result);
-			res.send(result);
-			res.status(200);
-		})
+		console.log("getTeams ran");
+		Event.findOne({
+			_id: req.params.id
+		}).populate("teams").exec(function(err, event) {
+			var teams = [];
+			console.log(event);
+			async.each(event.teams, function(team, callback) {
+				console.log(team._id);
+				Team.find({
+					_id: team._id
+				}).populate("players").exec(function(err, result) {
+					console.log(result);
+					teams.push(result);
+				});
+			}, function() {
+				console.log("CALL WENT THROUGH");
+				console.log(teams);
+				res.send(teams);
+				res.status(200);
+			});
+		});
 	}
 }

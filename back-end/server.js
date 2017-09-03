@@ -25,7 +25,10 @@ app.get('/player/:id', function(req, res, next) {
 	next();
 }, auth.dashboard);
 
-app.get('/api/teams', events.getTeams);
+app.get('/api/teams/:id', function(req, res, next) {
+	res.id = req.params.id;
+	next();
+}, events.getTeams);
 
 app.post('/api/message', checkAuthenticated, message.post);
 
