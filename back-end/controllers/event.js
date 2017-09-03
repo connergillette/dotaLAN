@@ -16,7 +16,7 @@ module.exports = {
 		}).populate('user players teams').populate({
 			path: 'schedule',
 			populate: {
-				path: 'radiant dire'
+				path: 'series'
 			}
 		}).populate({
 			path: 'teams',
@@ -183,9 +183,11 @@ module.exports = {
 
 		// console.log("CURRENT SCHEDULE ARRAY: " + schedule);
 		req.body.event.schedule = schedule;
-		// console.log(schedule);
-		Event.findByIdAndUpdate(req.body.event._id, req.body.event);
-		res.send(schedule);
+		console.log(schedule);
+		Event.update({
+			_id: mongoose.Types.ObjectId(req.body.event._id)
+		}, req.body.event);
+		// res.send(schedule);
 		// console.log("POST UPDATE: " + req.body.event.schedule);
 		res.status(200);
 	},
