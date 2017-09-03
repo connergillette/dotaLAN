@@ -93,6 +93,7 @@ module.exports = {
 			res.send(event);
 		});
 	},
+	// TODO: Support team generation for more than two teams
 	createTeams: function(req, res) {
 		if (req.body.players.length % 5 != 0) {
 			res.status(400);
@@ -118,50 +119,55 @@ module.exports = {
 				players.sort(function(a, b) {
 					return a.mmr - b.mmr;
 				});
+				// Loop this one team at a time based on number of players
+				var teamCount = 1;
+				var NUMBER_OF_TEAMS = players.length % 5;
+				async.each(players, function(player, callback){
+					var team = new Team();
+					var mmrTotal = 0;
 
-				var team1 = new Team();
-				var team2 = new Team();
+					for(var i = 0; i < players.length; i + NUMBER_OF_TEAMS){
+						team.players.push(players[i]);
+						mmrTotal += players[i].mmr;
+					}
+					for(var i = 0; i < players.length; i + NUMBER_OF_TEAMS){
+						players.remove(players[i]);
+					}
 
-				var total1 = 0;
-				var total2 = 0;
+				})
 
-				for (var i = 0; i < 10; i++) {
-					team1.players.push(players[i]);
-					total1 += players[i].mmr;
-					team2.players.push(players[i + 1]);
-					total2 += players[i + 1].mmr;
-					i += 1;
-				}
-
-				team1.average_mmr = parseInt(total1) / 5;
-				team1.name = "Team 1 Name";
-
-				team2.average_mmr = parseInt(total2) / 5;
-				team2.name = "Team 2 Name";
-
-				// console.log("TEAM 1: " + team1);
-				// console.log("TEAM 2: " + team2);
-
-				// team1.save();
-				// team2.save();
-				req.body.event.teams.push(team1);
-				req.body.event.teams.push(team2);
-
-				team1.save();
-				team2.save();
-
-				// var updated = new Event(req.body.event);
-				// updated.save();
-				// console.log("Current event: " + req.body.event.teams);
-				Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result){
-					console.log(result);
-				});
-
-				// console.log("UPDATED EVENT: " + updated);
-
-				console.log("Teams saved.");
-
-			});
+			// 	var team1 = new Team();
+			// 	var team2 = new Team();
+			//
+			// 	var total1 = 0;
+			// 	var total2 = 0;
+			//
+			// 	for (var i = 0; i < 10; i++) {
+			// 		team1.players.push(players[i]);
+			// 		total1 += players[i].mmr;
+			// 		team2.players.push(players[i + 1]);
+			// 		total2 += players[i + 1].mmr;
+			// 		i += 1;
+			// 	}
+			//
+			// 	team1.average_mmr = parseInt(total1) / 5;
+			// 	team1.name = "Team 1 Name";
+			//
+			// 	team2.average_mmr = parseInt(total2) / 5;
+			// 	team2.name = "Team 2 Name";
+			//
+			// 	req.body.event.teams.push(team1);
+			// 	req.body.event.teams.push(team2);
+			//
+			// 	team1.save();
+			// 	team2.save();
+			//
+			// 	Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result){
+			// 		console.log(result);
+			// 	});
+			//
+			// 	console.log("Teams saved.");
+			// });
 		}
 	},
 	createSchedule: function(req, res) {
@@ -202,22 +208,24 @@ module.exports = {
 		Event.findOne({
 			_id: req.params.id
 		}).populate("teams").exec(function(err, event) {
-			var teams = [];
-			// console.log(event);
-			async.each(event.teams, function(team, callback) {
-				// console.log(team._id);
-				Team.find({
-					_id: team._id
-				}).populate("players").exec(function(err, result) {
-					// console.log(result);
-					teams.push(result);
+			if(event){
+				var teams = [];
+				// console.log(event);
+				async.each(event.teams, function(team, callback) {
+					// console.log(team._id);
+					Team.find({
+						_id: team._id
+					}).populate("players").exec(function(err, result) {
+						// console.log(result);
+						teams.push(result);
+					});
+				}, function() {
+					// console.log("CALL WENT THROUGH");
+					// console.log(teams);
+					res.send(teams);
+					res.status(200);
 				});
-			}, function() {
-				// console.log("CALL WENT THROUGH");
-				// console.log(teams);
-				res.send(teams);
-				res.status(200);
-			});
+			}
 		});
 	}
 }
