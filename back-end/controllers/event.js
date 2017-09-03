@@ -83,8 +83,8 @@ module.exports = {
 			});
 
 			// TODO: Handle this
-			event.save(function(err){
-				if(err){
+			event.save(function(err) {
+				if (err) {
 					console.log(err);
 				}
 			});
@@ -120,56 +120,62 @@ module.exports = {
 					return a.mmr - b.mmr;
 				});
 				// Loop this one team at a time based on number of players
-				var teamCount = 1;
-				var NUMBER_OF_TEAMS = players.length % 5;
-				async.each(players, function(player, callback){
+				var NUMBER_OF_TEAMS = players.length / 5;
+
+				for (var i = 0; i < NUMBER_OF_TEAMS; i++) {
+					// console.log("TEAM " + i);
 					var team = new Team();
 					var mmrTotal = 0;
-
-					for(var i = 0; i < players.length; i + NUMBER_OF_TEAMS){
-						team.players.push(players[i]);
-						mmrTotal += players[i].mmr;
+					for (var j = 0; j < 5; j++) {
+						var player = players[i + (j * (NUMBER_OF_TEAMS - 1))]; // Player distribution algorithm
+						console.log(player);
+						team.players.push(player);
+						mmrTotal += player.mmr;
 					}
-					for(var i = 0; i < players.length; i + NUMBER_OF_TEAMS){
-						players.remove(players[i]);
-					}
-
-				})
-
-			// 	var team1 = new Team();
-			// 	var team2 = new Team();
-			//
-			// 	var total1 = 0;
-			// 	var total2 = 0;
-			//
-			// 	for (var i = 0; i < 10; i++) {
-			// 		team1.players.push(players[i]);
-			// 		total1 += players[i].mmr;
-			// 		team2.players.push(players[i + 1]);
-			// 		total2 += players[i + 1].mmr;
-			// 		i += 1;
-			// 	}
-			//
-			// 	team1.average_mmr = parseInt(total1) / 5;
-			// 	team1.name = "Team 1 Name";
-			//
-			// 	team2.average_mmr = parseInt(total2) / 5;
-			// 	team2.name = "Team 2 Name";
-			//
-			// 	req.body.event.teams.push(team1);
-			// 	req.body.event.teams.push(team2);
-			//
-			// 	team1.save();
-			// 	team2.save();
-			//
-			// 	Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result){
-			// 		console.log(result);
-			// 	});
-			//
-			// 	console.log("Teams saved.");
-			// });
+					team.name = "Team " + (i + 1);
+					team.average_mmr = mmrTotal / 5;
+					console.log(team);
+					team.save();
+					req.body.event.teams.push(team);
+				}
+				Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result) {
+					console.log(result);
+				});
+			});
 		}
 	},
+	// 	var team1 = new Team();
+	// 	var team2 = new Team();
+	//
+	// 	var total1 = 0;
+	// 	var total2 = 0;
+	//
+	// 	for (var i = 0; i < 10; i++) {
+	// 		team1.players.push(players[i]);
+	// 		total1 += players[i].mmr;
+	// 		team2.players.push(players[i + 1]);
+	// 		total2 += players[i + 1].mmr;
+	// 		i += 1;
+	// 	}
+	//
+	// 	team1.average_mmr = parseInt(total1) / 5;
+	// 	team1.name = "Team 1 Name";
+	//
+	// 	team2.average_mmr = parseInt(total2) / 5;
+	// 	team2.name = "Team 2 Name";
+	//
+	// 	req.body.event.teams.push(team1);
+	// 	req.body.event.teams.push(team2);
+	//
+	// 	team1.save();
+	// 	team2.save();
+	//
+	// 	Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result){
+	// 		console.log(result);
+	// 	});
+	//
+	// 	console.log("Teams saved.");
+	// });
 	createSchedule: function(req, res) {
 		var schedule = [];
 		// console.log("TEAMS: " + req.body.event.teams);
@@ -195,8 +201,8 @@ module.exports = {
 		// console.log(schedule);
 		req.body.event.schedule = schedule;
 		// console.log(req.body.event._id);
-		Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result){
-			if(result){
+		Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result) {
+			if (result) {
 				console.log(result);
 			}
 		});
@@ -208,7 +214,7 @@ module.exports = {
 		Event.findOne({
 			_id: req.params.id
 		}).populate("teams").exec(function(err, event) {
-			if(event){
+			if (event) {
 				var teams = [];
 				// console.log(event);
 				async.each(event.teams, function(team, callback) {
