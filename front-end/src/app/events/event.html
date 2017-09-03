@@ -23,12 +23,13 @@
           <div class="dashboard-event" ng-repeat="series in events.schedule">
             <!-- <a href="#{{series._id}}" data-toggle="collapse" aria-expanded="false" aria-controls="{{series._id}}"> -->
               <h3>{{series.radiant.name}} VS. {{series.dire.name}}</h3>
+              <p>{{series.date}}</p>
               <div id="{{series._id}}" class="collapse">
                 <div>
-                  <p>Lorem ipsum dolor sit amet, consecteur...</p>
+                  <p>Lorem ipsum dolor sit amet...</p>
                 </div>
               </div>
-            </a>
+            <!-- </a> -->
         </div>
         <button id="schedule-button" onclick="hideButton('schedule')" ng-click="events.createSchedule()" type="submit" class="btn btn-default button-panel-button center-block">Create Schedule</button>
     </div>

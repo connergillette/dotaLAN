@@ -27,12 +27,12 @@ export class EventsController {
 			if (!event) {
 				console.log('SOMETHING IS WRONG ' + event.name);
 			}
-			console.log(event.data);
 			vm.event = event.data;
 			vm.players = event.data.players;
 			vm.teams = event.data.teams;
 			vm.schedule = event.data.schedule;
-			console.log(event);
+
+			console.log(event.data);
 		});
 		this.getTeamInfo();
 		return vm.event;

@@ -23,6 +23,11 @@ module.exports = {
 			populate: {
 				path: 'players'
 			}
+		}).populate({
+			path: 'schedule',
+			populate: {
+				path: 'radiant dire'
+			}
 		}).exec(function(err, result) {
 			res.send(result);
 			// console.log(result);
@@ -174,41 +179,42 @@ module.exports = {
 			schedule.push(series);
 
 			series.save();
-			// console.log(series);
 			// TODO: Coin flip for side / pick, implement timing offsets,
 			// single / double elim, best of, optional match_id
 
 			i++;
 		}
 
-		// console.log("CURRENT SCHEDULE ARRAY: " + schedule);
+		// console.log("CURRENT SCHEDULE ARRAY: ");
+		// console.log(schedule);
 		req.body.event.schedule = schedule;
-		console.log(schedule);
-		Event.update({
-			_id: mongoose.Types.ObjectId(req.body.event._id)
-		}, req.body.event);
-		// res.send(schedule);
-		// console.log("POST UPDATE: " + req.body.event.schedule);
+		// console.log(req.body.event._id);
+		Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result){
+			if(result){
+				console.log(result);
+			}
+		});
+		// console.log(req.body.event);
+		res.send(schedule);
 		res.status(200);
 	},
 	getTeams: function(req, res) {
-		console.log("getTeams ran");
 		Event.findOne({
 			_id: req.params.id
 		}).populate("teams").exec(function(err, event) {
 			var teams = [];
-			console.log(event);
+			// console.log(event);
 			async.each(event.teams, function(team, callback) {
-				console.log(team._id);
+				// console.log(team._id);
 				Team.find({
 					_id: team._id
 				}).populate("players").exec(function(err, result) {
-					console.log(result);
+					// console.log(result);
 					teams.push(result);
 				});
 			}, function() {
-				console.log("CALL WENT THROUGH");
-				console.log(teams);
+				// console.log("CALL WENT THROUGH");
+				// console.log(teams);
 				res.send(teams);
 				res.status(200);
 			});
