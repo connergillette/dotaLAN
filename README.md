@@ -1,7 +1,7 @@
 # dotaLAN
 Tool for planning and running Dota 2 tournaments.
 
-## Minimum Viable Product (hopefully by June 2017)
+## Minimum Viable Product (85% Complete)
 - Easy user registration with Steam ID
     - Auto-generated player overviews
 - Add / join / manage events

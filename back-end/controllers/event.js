@@ -93,7 +93,7 @@ module.exports = {
 			res.send(event);
 		});
 	},
-	// TODO: Support team generation for more than two teams
+	// TODO: Implement / compare multiple team distribution algorithms
 	createTeams: function(req, res) {
 		if (req.body.players.length % 5 != 0) {
 			res.status(400);
@@ -122,6 +122,7 @@ module.exports = {
 				// Loop this one team at a time based on number of players
 				var NUMBER_OF_TEAMS = players.length / 5;
 
+			//  ALGORITHM 1: STANDARD ITERATION (1-2-3-4, 1-2-3-4, 1...)
 				for (var i = 0; i < NUMBER_OF_TEAMS; i++) {
 					// console.log("TEAM " + i);
 					var team = new Team();
@@ -142,8 +143,30 @@ module.exports = {
 					console.log(result);
 				});
 			});
-		}
-	},
+
+			//  ALGORITHM 2: SNAKE DRAFT (1-2-3-4, 4-3-2-1, 1...)
+	// 			for (var i = 0; i < NUMBER_OF_TEAMS; i++) {
+	// 				// console.log("TEAM " + i);
+	// 				var team = new Team();
+	// 				var mmrTotal = 0;
+	// 				for (var j = 0; j < 5; j++) {
+	// 					var player = players[i + (j * (NUMBER_OF_TEAMS - 1))]; // Player distribution algorithm
+	// 					console.log(player);
+	// 					team.players.push(player);
+	// 					mmrTotal += player.mmr;
+	// 				}
+	// 				team.name = "Team " + (i + 1);
+	// 				team.average_mmr = mmrTotal / 5;
+	// 				console.log(team);
+	// 				team.save();
+	// 				req.body.event.teams.push(team);
+	// 			}
+	// 			Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result) {
+	// 				console.log(result);
+	// 			});
+	// 		});
+	// 	}
+	// },
 	// 	var team1 = new Team();
 	// 	var team2 = new Team();
 	//
