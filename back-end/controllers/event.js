@@ -122,83 +122,42 @@ module.exports = {
 				// Loop this one team at a time based on number of players
 				var NUMBER_OF_TEAMS = players.length / 5;
 
-			//  ALGORITHM 1: STANDARD ITERATION (1-2-3-4, 1-2-3-4, 1...)
+				var minAverage = 0;
+				var maxAverage = 0;
+
 				for (var i = 0; i < NUMBER_OF_TEAMS; i++) {
 					// console.log("TEAM " + i);
 					var team = new Team();
 					var mmrTotal = 0;
 					for (var j = 0; j < 5; j++) {
-						var player = players[i + (j * (NUMBER_OF_TEAMS - 1))]; // Player distribution algorithm
+						var player = players[i + (j * (NUMBER_OF_TEAMS))]; // Player distribution algorithm
+						console.log("[" + i + ", " + j + "]");
 						console.log(player);
 						team.players.push(player);
 						mmrTotal += player.mmr;
 					}
 					team.name = "Team " + (i + 1);
 					team.average_mmr = mmrTotal / 5;
-					console.log(team);
 					team.save();
 					req.body.event.teams.push(team);
+					if (i == 0) {
+						minAverage = team.average_mmr;
+						maxAverage = team.average_mmr;
+					} else if (team.average_mmr > maxAverage) {
+						maxAverage = team.average_mmr;
+					} else if (team.average_mmr < minAverage) {
+						minAverage = team.average_mmr;
+					}
+					console.log("MMR RANGE ACROSS ALL TEAMS: " + (maxAverage - minAverage));
 				}
-				Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result) {
-					console.log(result);
+				Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(err) {
+					if (err) {
+						console.log(err);
+					}
 				});
 			});
-
-			//  ALGORITHM 2: SNAKE DRAFT (1-2-3-4, 4-3-2-1, 1...)
-	// 			for (var i = 0; i < NUMBER_OF_TEAMS; i++) {
-	// 				// console.log("TEAM " + i);
-	// 				var team = new Team();
-	// 				var mmrTotal = 0;
-	// 				for (var j = 0; j < 5; j++) {
-	// 					var player = players[i + (j * (NUMBER_OF_TEAMS - 1))]; // Player distribution algorithm
-	// 					console.log(player);
-	// 					team.players.push(player);
-	// 					mmrTotal += player.mmr;
-	// 				}
-	// 				team.name = "Team " + (i + 1);
-	// 				team.average_mmr = mmrTotal / 5;
-	// 				console.log(team);
-	// 				team.save();
-	// 				req.body.event.teams.push(team);
-	// 			}
-	// 			Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result) {
-	// 				console.log(result);
-	// 			});
-	// 		});
-	// 	}
-	// },
-	// 	var team1 = new Team();
-	// 	var team2 = new Team();
-	//
-	// 	var total1 = 0;
-	// 	var total2 = 0;
-	//
-	// 	for (var i = 0; i < 10; i++) {
-	// 		team1.players.push(players[i]);
-	// 		total1 += players[i].mmr;
-	// 		team2.players.push(players[i + 1]);
-	// 		total2 += players[i + 1].mmr;
-	// 		i += 1;
-	// 	}
-	//
-	// 	team1.average_mmr = parseInt(total1) / 5;
-	// 	team1.name = "Team 1 Name";
-	//
-	// 	team2.average_mmr = parseInt(total2) / 5;
-	// 	team2.name = "Team 2 Name";
-	//
-	// 	req.body.event.teams.push(team1);
-	// 	req.body.event.teams.push(team2);
-	//
-	// 	team1.save();
-	// 	team2.save();
-	//
-	// 	Event.findByIdAndUpdate(req.body.event._id, req.body.event, function(result){
-	// 		console.log(result);
-	// 	});
-	//
-	// 	console.log("Teams saved.");
-	// });
+		}
+	},
 	createSchedule: function(req, res) {
 		var schedule = [];
 		// console.log("TEAMS: " + req.body.event.teams);
